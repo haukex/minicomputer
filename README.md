@@ -137,10 +137,7 @@ M5Stack CardKB
 - ATmega8A runs on a wide supply voltage range of 2.7V to 5.5V, so it's fine if we run it off the RPi's 3.3V
 - For the connections between the keyboard and the RPi, see the diagram in the `CardKB/cardkb` repo
   - The wires that shipped with my CardKB units are coded as follows:
-    - Black = GND
-    - Red = VCC
-    - Yellow = SDA
-    - White = SCL
+    Black=GND, Red=VCC, Yellow=SDA, White=SCL
 - `sudo apt install python3-smbus python3-uinput`
 - To test, `python3 CardKB/kbd_test.py`
 - Installing `CardKB/cardkb`
@@ -151,6 +148,9 @@ M5Stack CardKB
       sudo install -m 0644 -t /lib/systemd/system ~/code/minicomputer/CardKB/cardkb/cardkb.service
       sudo systemctl daemon-reload
       sudo systemctl enable cardkb && sudo systemctl start cardkb
+
+- Possible To-Do for Later: The cardkb code could be improved a little, e.g. handling `KeyboardInterrupt gracefully,
+  and its Readme could be updated to match the instructions above.
 
 
 <!-- vim: set ts=2 sw=2 expandtab : -->
