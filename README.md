@@ -129,6 +129,7 @@ Waveshare UPS Hat
   - `watch ~/code/minicomputer/UPS-Hat/ina219.py`
 
 - Possible To-Do for Later: integrate display into UI, though apparently this requires a kernel driver that provides a `/sys/class/power_supply/*`
+- Possible To-Do for Later: the reported current consumption feels a little low?
 
 
 M5Stack CardKB
