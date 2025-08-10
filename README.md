@@ -71,7 +71,7 @@ Waveshare 1.3" 240x240 Display Hat
       sudo ./fbcp-ili9341
       sudo install -m 0755 -t /usr/local/sbin fbcp-ili9341
       sudo install -m 0644 -t /etc ../fbcp-ili9341.conf
-      sudo install -m 0644 -t /etc/systemd/system ../fbcp-ili9341.service
+      sudo install -m 0644 -t /lib/systemd/system ../fbcp-ili9341.service
       sudo systemctl daemon-reload
       sudo systemctl enable fbcp-ili9341 && sudo systemctl start fbcp-ili9341
       rm CMakeCache.txt  # only needed for rebuild
@@ -89,7 +89,7 @@ Part of the Display Hat (above)
 - Run the following:
 
       sudo apt install python3-uinput
-      sudo ln -snfv ~/code/minicomputer/JoyMouse/joy_mouse.py /usr/local/bin/joy_mouse.py
+      sudo install -m 0755 -t /usr/local/bin ~/code/minicomputer/JoyMouse/joy_mouse.py
       mkdir -vp ~/.config/autostart
       cat >~/.config/autostart/local.desktop <<EOF
       [Desktop Entry]
@@ -143,7 +143,14 @@ M5Stack CardKB
     - White = SCL
 - `sudo apt install python3-smbus python3-uinput`
 - To test, `python3 CardKB/kbd_test.py`
-- TODO: Use `CardKB/cardkb`
+- Installing `CardKB/cardkb`
+
+      sudo mkdir -m 0755 /usr/local/lib/cardkb
+      sudo install -m 0644 -t /usr/local/lib/cardkb ~/code/minicomputer/CardKB/cardkb/ascii_codes.py
+      sudo install -m 0755 -t /usr/local/lib/cardkb ~/code/minicomputer/CardKB/cardkb/__main__.py
+      sudo install -m 0644 -t /lib/systemd/system ~/code/minicomputer/CardKB/cardkb/cardkb.service
+      sudo systemctl daemon-reload
+      sudo systemctl enable cardkb && sudo systemctl start cardkb
 
 
 <!-- vim: set ts=2 sw=2 expandtab : -->
