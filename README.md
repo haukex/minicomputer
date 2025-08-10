@@ -115,11 +115,25 @@ I2C for UPS and Keyboard
 Waveshare UPS Hat
 -----------------
 
-- `sudo apt install python3-smbus`
-- To test, `python3 'Docs/Waveshare UPS HAT (C)/INA219.py'`
-- TODO: `sudo modprobe ina2xx`; config in device tree; `ls /sys/class/hwmon/hwmon*/*_input`;
-  integrate display into UI (though this may require a kernel driver?)
+- To test, `python3 'Docs/Waveshare UPS HAT (C)/INA219.py'` (`sudo apt install python3-smbus`)
+- It's also possible to use the kernel driver for the same thing:
 
+    sudo modprobe ina2xx
+    echo ina219 0x43 | sudo tee /sys/bus/i2c/devices/i2c-1/new_device
+    echo 100000 | sudo tee /sys/bus/i2c/devices/1-0043/hwmon/hwmon*/shunt_resistor
+    watch -n1 cat /sys/bus/i2c/devices/1-0043/hwmon/hwmon*/{in,curr,power}1_input
+    # Units are apparently mV, mA, and uW (and negative current indicates discharging)
+
+- Configuration via device tree:
+  - `cd UPS-Hat`
+  - `dtc -@ -I dts -O dtb -o ina219-0x43.dtbo ina219-0x43-overlay.dts`
+  - `sudo mv -v ina219-0x43.dtbo /boot/overlays/`
+  - `sudo vi /boot/config.txt` and add the line `dtoverlay=ina219-0x43`
+  - `sudo reboot`
+  - `perl -we '$v=qx[cat /sys/bus/i2c/devices/1-0043/hwmon/hwmon*/in1_input]/1000; printf "%.3fV %.1f%%\n", $v, ($v-3)/1.2*100'`
+    (this uses the same formula for battery percentage calculation as the above `INA219.py`)
+
+- Possible To-Do for Later: integrate display into UI, though apparently this requires a kernel driver that provides a `/sys/class/power_supply/*`
 
 M5Stack CardKB
 --------------

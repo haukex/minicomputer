@@ -1,0 +1,20 @@
+/dts-v1/;
+/plugin/;
+
+// WARNING: I'm not an expert in device tree overlays, but this seems to work.
+
+/ {
+	compatible = "brcm,bcm2835";
+	fragment@0 {
+		target = <&i2c1>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			ina219@43 {
+				compatible = "ti,ina219";
+				reg = <0x43>;
+				shunt-resistor = <100000>;  // 0.1 Ohm in uOhm
+			};
+		};
+	};
+};
