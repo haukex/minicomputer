@@ -42,3 +42,8 @@
     <https://github.com/m5stack/M5-ProductExampleCodes/blob/1bc38736e61a362080d1dffc4020b3a2a1dff6ae/Unit/CARDKB/firmware_328p/CardKeyBoard/CardKeyBoard.ino>
   - `keymap.webp`:
     <https://static-cdn.m5stack.com/resource/docs/products/unit/cardkb/cardkb_02.webp>
+  - `ATmega8A-Data-Sheet-DS40001974B.pdf`:
+    <https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega8A-Data-Sheet-DS40001974B.pdf>
+
+
+<!-- vim: set ts=2 sw=2 expandtab : -->
