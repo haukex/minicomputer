@@ -1,0 +1,3 @@
+[submodule "ian-antking-cardkb"]
+	path = CardKB/ian-antking-cardkb
+	url = https://github.com/ian-antking/cardkb.git
