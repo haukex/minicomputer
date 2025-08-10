@@ -48,33 +48,33 @@ Waveshare 1.3" 240x240 Display Hat
   - `sudo reboot`
 - In `/boot/config.txt` (comment out the last three when connecting external display)
 
-    hdmi_force_hotplug=1
-    hdmi_group=2
-    hdmi_mode=87
-    hdmi_cvt=320 320 60
+      hdmi_force_hotplug=1
+      hdmi_group=2
+      hdmi_mode=87
+      hdmi_cvt=320 320 60
 
 - <https://github.com/juj/fbcp-ili9341> (only works on 32-bit Raspbian before Bookworm!)
 
-    sudo apt install cmake libraspberrypi-dev
-    mkdir -vp ~/code
-    cd ~/code
-    git clone https://github.com/juj/fbcp-ili9341.git
-    # currently at d0ebacf7c1f30b19b50997ebb67ba4f70ab95368
-    cd fbcp-ili9341
-    mkdir build
-    cd build
-    # Zero W: (because it doesn't seem to reliably turn the backlight back on?)
-    cmake -DWAVESHARE_ST7789VW_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=20 -DSTATISTICS=0 ..
-    # Zero 2 W: (seems to need the higher divisor)
-    cmake -DWAVESHARE_ST7789VW_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DSTATISTICS=0 ..
-    make -j
-    sudo ./fbcp-ili9341
-    sudo install -m 0755 -t /usr/local/sbin fbcp-ili9341
-    sudo install -m 0644 -t /etc ../fbcp-ili9341.conf
-    sudo install -m 0644 -t /etc/systemd/system ../fbcp-ili9341.service
-    sudo systemctl daemon-reload
-    sudo systemctl enable fbcp-ili9341 && sudo systemctl start fbcp-ili9341
-    rm CMakeCache.txt  # only needed for rebuild
+      sudo apt install cmake libraspberrypi-dev
+      mkdir -vp ~/code
+      cd ~/code
+      git clone https://github.com/juj/fbcp-ili9341.git
+      # currently at d0ebacf7c1f30b19b50997ebb67ba4f70ab95368
+      cd fbcp-ili9341
+      mkdir build
+      cd build
+      # Zero W: (because it doesn't seem to reliably turn the backlight back on?)
+      cmake -DWAVESHARE_ST7789VW_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=20 -DSTATISTICS=0 ..
+      # Zero 2 W: (seems to need the higher divisor)
+      cmake -DWAVESHARE_ST7789VW_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DSTATISTICS=0 ..
+      make -j
+      sudo ./fbcp-ili9341
+      sudo install -m 0755 -t /usr/local/sbin fbcp-ili9341
+      sudo install -m 0644 -t /etc ../fbcp-ili9341.conf
+      sudo install -m 0644 -t /etc/systemd/system ../fbcp-ili9341.service
+      sudo systemctl daemon-reload
+      sudo systemctl enable fbcp-ili9341 && sudo systemctl start fbcp-ili9341
+      rm CMakeCache.txt  # only needed for rebuild
 
 - Possible To-Do for Later: Could optimize the SPI bus frequency (according to the GitHub repo, the max SPI clock is 62.5MHz?)
 
@@ -89,15 +89,15 @@ Part of the Display Hat (above)
   - on the Zero 2 W, the pixel step can be decreased from 5 to 3
   - Run the following:
 
-      sudo apt install python3-xlib
-      pip install PyUserInput
-      mkdir -vp ~/.config/autostart
-      ln -snfv 'minicomputer/Docs/Waveshare 1.3inch IPS LCD Hat/Mouse.py' ~/code/Mouse.py
-      cat >~/.config/autostart/local.desktop <<EOF
-      [Desktop Entry]
-      Type=Application
-      Exec=python3 /home/haukex/code/Mouse.py
-      EOF
+        sudo apt install python3-xlib
+        pip install PyUserInput
+        mkdir -vp ~/.config/autostart
+        ln -snfv 'minicomputer/Docs/Waveshare 1.3inch IPS LCD Hat/Mouse.py' ~/code/Mouse.py
+        cat >~/.config/autostart/local.desktop <<EOF
+        [Desktop Entry]
+        Type=Application
+        Exec=python3 /home/haukex/code/Mouse.py
+        EOF
 
 - TODO: switch to interrupt-based script and use the better-maintained `python3-uinput` like the CardKB script
 
@@ -118,11 +118,11 @@ Waveshare UPS Hat
 - To test, `python3 'Docs/Waveshare UPS HAT (C)/INA219.py'` (`sudo apt install python3-smbus`)
 - It's also possible to use the kernel driver for the same thing:
 
-    sudo modprobe ina2xx
-    echo ina219 0x43 | sudo tee /sys/bus/i2c/devices/i2c-1/new_device
-    echo 100000 | sudo tee /sys/bus/i2c/devices/1-0043/hwmon/hwmon*/shunt_resistor
-    watch -n1 cat /sys/bus/i2c/devices/1-0043/hwmon/hwmon*/{in,curr,power}1_input
-    # Units are apparently mV, mA, and uW (and negative current indicates discharging)
+      sudo modprobe ina2xx
+      echo ina219 0x43 | sudo tee /sys/bus/i2c/devices/i2c-1/new_device
+      echo 100000 | sudo tee /sys/bus/i2c/devices/1-0043/hwmon/hwmon*/shunt_resistor
+      watch -n1 cat /sys/bus/i2c/devices/1-0043/hwmon/hwmon*/{in,curr,power}1_input
+      # Units are apparently mV, mA, and uW (and negative current indicates discharging)
 
 - Configuration via device tree:
   - `cd UPS-Hat`
