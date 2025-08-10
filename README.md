@@ -130,8 +130,7 @@ Waveshare UPS Hat
   - `sudo mv -v ina219-0x43.dtbo /boot/overlays/`
   - `sudo vi /boot/config.txt` and add the line `dtoverlay=ina219-0x43`
   - `sudo reboot`
-  - `perl -we '$v=qx[cat /sys/bus/i2c/devices/1-0043/hwmon/hwmon*/in1_input]/1000; printf "%.3fV %.1f%%\n", $v, ($v-3)/1.2*100'`
-    (this uses the same formula for battery percentage calculation as the above `INA219.py`)
+  - `watch ~/code/minicomputer/UPS-Hat/ina219.py`
 
 - Possible To-Do for Later: integrate display into UI, though apparently this requires a kernel driver that provides a `/sys/class/power_supply/*`
 
