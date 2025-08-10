@@ -1,3 +1,4 @@
-[submodule "ian-antking-cardkb"]
-	path = CardKB/ian-antking-cardkb
-	url = https://github.com/ian-antking/cardkb.git
+[submodule "CardKB/cardkb"]
+	path = CardKB/cardkb
+	url = https://github.com/haukex/cardkb.git
+	branch = hd-main

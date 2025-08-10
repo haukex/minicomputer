@@ -1,5 +1,5 @@
-Minicomputer with Raspberry Pi Zero
-===================================
+Mini-Computer with Raspberry Pi Zero
+====================================
 
 Basic Idea:
 - Raspberry Pi Zero 2 W
