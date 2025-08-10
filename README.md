@@ -84,22 +84,18 @@ Waveshare Joystick Mouse
 
 Part of the Display Hat (above)
 
-- Waveshare provides a (very inefficent!) script that we can use for testing:
-  - note the polling by this script burns ~14% CPU on the Zero W
-  - on the Zero 2 W, the pixel step can be decreased from 5 to 3
-  - Run the following:
+- Waveshare provides a (very inefficent!) script that I initially used for testing,
+  but because the polling by this script burned ~14% CPU on the Zero W, I rewrote it
+- Run the following:
 
-        sudo apt install python3-xlib
-        pip install PyUserInput
-        mkdir -vp ~/.config/autostart
-        ln -snfv 'minicomputer/Docs/Waveshare 1.3inch IPS LCD Hat/Mouse.py' ~/code/Mouse.py
-        cat >~/.config/autostart/local.desktop <<EOF
-        [Desktop Entry]
-        Type=Application
-        Exec=python3 /home/haukex/code/Mouse.py
-        EOF
-
-- TODO: switch to interrupt-based script and use the better-maintained `python3-uinput` like the CardKB script
+      sudo apt install python3-uinput
+      sudo ln -snfv ~/code/minicomputer/JoyMouse/joy_mouse.py /usr/local/bin/joy_mouse.py
+      mkdir -vp ~/.config/autostart
+      cat >~/.config/autostart/local.desktop <<EOF
+      [Desktop Entry]
+      Type=Application
+      Exec=sudo /usr/local/bin/joy_mouse.py
+      EOF
 
 
 I2C for UPS and Keyboard
@@ -133,6 +129,7 @@ Waveshare UPS Hat
   - `watch ~/code/minicomputer/UPS-Hat/ina219.py`
 
 - Possible To-Do for Later: integrate display into UI, though apparently this requires a kernel driver that provides a `/sys/class/power_supply/*`
+
 
 M5Stack CardKB
 --------------
